@@ -2,7 +2,7 @@
 
 ## Summary
 
-Sinple watchdog script that kills processes that consume a lot of energy.
+Simple macOS watchdog script that kills processes that consume a lot of energy.
 
 ## Description
 
