@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # setup ########################################################################
-APPS=('WindowServer' 'suggestd' 'AppleSpell' 'Messages' 'Calendar' 'CalendarAgevnt' 'soagent' 'callservicesd' 'airportd' 'cloudphotosd')
+APPS=( 'suggestd' 'AppleSpell' 'Messages' 'Calendar' 'CalendarAgevnt' 'soagent' 'callservicesd' 'airportd' 'cloudphotosd')
 SLEEP="30"
 MAX="80.0"
 BATTERY_ONLY="1"
