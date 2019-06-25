@@ -18,15 +18,15 @@ run:
 debug:
 	@DEBUG_SLEEP=1 DEBUG_MAX=1 DEBUG_BATTERY=0 bash "$(script)"
 
-install:
+install: remove
 	@cp "$(script)" "$(target_bin)"
 	@cp "$(plist)" "$(target_agent)/$(plist)"
 	@launchctl load -w "$(target_agent)/$(plist)"
 
 remove:
-	@launchctl unload -w "$(target_agent)/$(plist)"
-	@rm "$(target_bin)/$(script)" || exit 0
-	@rm "$(target_agent)/$(plist)" || exit 0
+	@launchctl unload -w "$(target_agent)/$(plist)" 2>/dev/null || exit 0
+	@rm "$(target_bin)/$(script)" 2>/dev/null || exit 0
+	@rm "$(target_agent)/$(plist)" 2>/dev/null || exit 0
 
 feedback:
 	@open https://github.com/AlexanderWillner/energywatchdog
