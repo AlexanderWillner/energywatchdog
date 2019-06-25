@@ -5,7 +5,7 @@
    <key>Label</key>
    <string>ws.willner.alex.energywatchdog</string>
    <key>ProgramArguments</key>
-   <array><string>/usr/local/bin/energyWatchDogws.willner.energywatchdog.sh</string></array>
+   <array><string>/usr/local/bin/ws.willner.energywatchdog.sh</string></array>
    <key>RunAtLoad</key>
    <true/>
 </dict>

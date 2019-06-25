@@ -1,10 +1,37 @@
+plist=ws.willner.energywatchdog.plist
+script=ws.willner.energywatchdog.sh
+target_bin=/usr/local/bin
+target_agent=$$HOME/Library/LaunchAgents/
+
+help:
+	@echo "Nothing really to make, but there are some available commands:"
+	@echo " * run      : run application to test it"
+	@echo " * install  : install application as an agent"
+	@echo " * remove   : remove agent"
+	@echo " * feedback : create a GitHub issue"
+	@echo " * style    : style bash scripts"
+	@echo " * harden   : harden bash scripts"
+
 run:
-	@bash ws.willner.energywatchdog.sh
+	@bash "$(script)"
 
 install:
-	@cp ws.willner.energywatchdog.sh /usr/local/bin
-	@cp ws.willner.energywatchdog.plist $$HOME/Library/LaunchAgents/
+	@cp "$(script)" "$(target_bin)"
+	@cp "$(plist)" "$(target_agent)/$(plist)"
+	@launchctl load -w "$(target_agent)/$(plist)"
 
 remove:
-	@rm /usr/local/bin/ws.willner.energywatchdog.sh || exit 0
-	@rm $$HOME/Library/LaunchAgents/ws.willner.energywatchdog.plist || exit 0
+	@launchctl unload -w "$(target_agent)/$(plist)"
+	@rm "$(target_bin)/$(script)" || exit 0
+	@rm "$(target_agent)/$(plist)" || exit 0
+
+feedback:
+	@open https://github.com/AlexanderWillner/energywatchdog
+
+harden:
+	@type shellharden >/dev/null 2>&1 || (echo "Run 'brew install shellharden' first." >&2 ; exit 1)
+	@shellharden --replace "$(script)"
+	
+style:
+	@type shfmt >/dev/null 2>&1 || (echo "Run 'brew install shfmt' first." >&2 ; exit 1)
+	@shfmt -i 2 -w -s "$(script)"
