@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # setup ########################################################################
-APPS=( 'suggestd' 'AppleSpell' 'Messages' 'Calendar' 'CalendarAgevnt' 'soagent' 'callservicesd' 'airportd' 'cloudphotosd')
-SLEEP="30"
-MAX="80"
-BATTERY_ONLY="1"
-NOTIFY="1"
+readonly APPS=( 'suggestd' 'AppleSpell' 'Messages' 'Calendar' 'CalendarAgevnt' 'soagent' 'callservicesd' 'airportd' 'cloudphotosd')
+readonly SLEEP="${DEBUG_SLEEP:-30}"
+readonly MAX="${DEBUG_MAX:-80}"
+readonly BATTERY_ONLY="${DEBUG_BATTERY:-1}"
+readonly NOTIFY="1"
 ################################################################################
 
 # main #########################################################################
@@ -15,11 +15,11 @@ main() {
   while true; do
     echo "============================================"
     for APP in "${APPS[@]}"; do
-      PID="$(ps u $(pgrep -x "$APP") | tail -1 | awk '{print $2}')"
-      LOAD_NOW="$(ps u $(pgrep -x "$APP") | tail -1 | awk '{print $3}')"
-      LOAD_LAST="$(cat $TMPDIR/EnergyWatchDog_$PID 2>/dev/null || echo 0)"
-      STATUS="OK"
-      POWER="$(pmset -g batt | awk '{printf "%s %s\n", $4,$5;exit}')"
+      local PID="$(ps u $(pgrep -x "$APP") | tail -1 | awk '{print $2}')"
+      local LOAD_NOW="$(ps u $(pgrep -x "$APP") | tail -1 | awk '{print $3}')"
+      local LOAD_LAST="$(cat $TMPDIR/EnergyWatchDog_$PID 2>/dev/null || echo 0)"
+      local STATUS="OK"
+      local POWER="$(pmset -g batt | awk '{printf "%s %s\n", $4,$5;exit}')"
 
       echo "$LOAD_NOW" >"$TMPDIR/EnergyWatchDog_$PID"
 

@@ -15,6 +15,9 @@ help:
 run:
 	@bash "$(script)"
 
+debug:
+	@DEBUG_SLEEP=1 DEBUG_MAX=1 DEBUG_BATTERY=0 bash "$(script)"
+
 install:
 	@cp "$(script)" "$(target_bin)"
 	@cp "$(plist)" "$(target_agent)/$(plist)"
