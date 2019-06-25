@@ -10,12 +10,17 @@ When working mobile your MacBook should run as long as possible. However, someti
 
 ## Usage
 
-You should modify the header of the file ```ws.willner.energywatchdog.sh``` as needed before installing the daemon. The ```make``` commands:
+You should modify the header of the file ```ws.willner.energywatchdog.sh``` as needed before installing the agent. The ```make``` commands:
 
 ```
-$ make run # to run
-$ make install # to install to /usr/local/bin and ~/Library/LaunchAgents
-$ make remove # to remove
+$ make
+Nothing really to make, but there are some available commands:
+ * run      : run application to test it
+ * install  : install application as an agent
+ * remove   : remove agent
+ * feedback : create a GitHub issue
+ * style    : style bash scripts
+ * harden   : harden bash scripts
 ```
 
 ## Screenshot
