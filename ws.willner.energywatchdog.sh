@@ -3,8 +3,9 @@
 # setup ########################################################################
 APPS=( 'suggestd' 'AppleSpell' 'Messages' 'Calendar' 'CalendarAgevnt' 'soagent' 'callservicesd' 'airportd' 'cloudphotosd')
 SLEEP="30"
-MAX="80.0"
+MAX="80"
 BATTERY_ONLY="1"
+NOTIFY="1"
 ################################################################################
 
 # main #########################################################################
@@ -24,10 +25,14 @@ main() {
 
       if (("$(echo "$LOAD_NOW > $MAX" | bc -l)")); then
         STATUS="WATCHING"
+        # todo: calculate average load of process over time using multiple measures
         if (("$(echo "$LOAD_LAST > $MAX" | bc -l)")); then
           if [ "$BATTERY_ONLY" = "1" ] && [ "$POWER" != "'Battery Power'" ]; then
             STATUS="DRAINING"
           else
+            if [ "$NOTIFY" = "1" ]; then
+              osascript -e 'display notification "\"'"$APP"'\" is using significant power. Killing it now..." with title "Energy Watchdog"'
+            fi
             kill "$PID"
             sleep 3
             kill -9 "$PID" 2>/dev/null
